@@ -44,6 +44,8 @@ INSTALLED_APPS = [
     'vendor',
     'customer',
     'api',
+    'rest_framework',
+    'rest_framework_simplejwt.token_blacklist',
 
 ]
 
@@ -118,6 +120,7 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
+AUTH_USER_MODEL='userauths.User'  # Specify the user model to use for authentication
 
 
 # Static files (CSS, JavaScript, Images)
@@ -137,6 +140,6 @@ JAZZMIN_SETTINGS ={
     "site_title": "Admin-Vilas",
     "site_header": "Django Jazmin Admin",
     "index_logo": None,
-    "site_brand": "jazzmin",
+    "site_brand": "Beehyv",
     "welcome_sign": "Welcome "
 }
