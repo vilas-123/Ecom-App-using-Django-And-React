@@ -15,7 +15,7 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         validate()
         token = super().get_token(user)
         print(token)
-        token['full_name'] = user.fullname
+        token['fullname'] = user.fullname
         token['email'] = user.email
         token['username'] = user.username
         return token
@@ -33,7 +33,7 @@ class RegisterSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['username', 'full_name', 'email', 'password', 'confirm_password', 'phone']
+        fields = ['username', 'fullname', 'email', 'password', 'confirm_password', 'phone']
 
     def validate(self, attrs):
         if attrs['password'] != attrs['confirm_password']:
@@ -42,10 +42,12 @@ class RegisterSerializer(serializers.ModelSerializer):
     
     def create(self, validated_data):
         user = User.objects.create(
-        full_name=validated_data['full_name'],
+        fullname=validated_data['fullname'],
         email=validated_data['email'],
         phone=validated_data['phone']
         )
+        email_user ,phone = user.email.split('@')
+        user.username = email_user
         user.set_password(validated_data['password'])
         user.save()
         return user
