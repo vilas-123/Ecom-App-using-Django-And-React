@@ -5,18 +5,27 @@ from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     def get_token(cls, user):
+        def validate():
+            # try:
+            #     data['vendor_id'] = data[user].vendor.id
+            # except AttributeError:
+            #     data['vendor_id'] = 0
+            # return data
+            pass
+        validate()
         token = super().get_token(user)
-        token['full_name'] = user.full_name
+        print(token)
+        token['full_name'] = user.fullname
         token['email'] = user.email
         token['username'] = user.username
         return token
 
-    def validate(self, data):
-        try:
-            data['vendor_id'] = data['user'].vendor.id
-        except AttributeError:
-            data['vendor_id'] = 0
-        return data
+    # def validate(self, data):
+    #     try:
+    #         data['vendor_id'] = data[user].vendor.id
+    #     except AttributeError:
+    #         data['vendor_id'] = 0
+    #     return data
 
 class RegisterSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True, required=True)
